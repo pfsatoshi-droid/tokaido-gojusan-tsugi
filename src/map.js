@@ -4,10 +4,49 @@ import {coordinates,walkingUrl} from './locations';
 
 export function createJourneyMap({stops,onSelect}) {
  const root=document.querySelector('#journey-map');
- root.innerHTML=`<div class="map-toolbar"><label for="map-destination">宿場へ移動 <select id="map-destination"><option value="">宿場を選ぶ</option>${stops.map(s=>`<option value="${s.i}">${s.i===0?'出発':s.i===54?'到着':s.i+'宿'} · ${s.name}</option>`).join('')}</select></label><div class="map-controls"><button id="map-locate">現在地</button><button id="map-out" aria-label="地図を縮小">−</button><span id="map-scale" aria-live="polite"></span><button id="map-in" aria-label="地図を拡大">＋</button><button id="map-reset">全宿場</button></div></div><div id="road-map" aria-label="道路や交差点を確認できる東海道の地図"></div><p id="map-network" role="status" hidden>地図を読み込めません。通信を確認するか、下の「Google マップで徒歩経路」を開いてください。</p><div class="map-selected"><div><strong id="map-selected-name">日本橋周辺</strong><small>宿場付近の目安地点</small></div><button id="map-details" class="secondary">宿場の紹介</button><a id="map-walk" class="primary" target="_blank" rel="noopener noreferrer">Google マップで徒歩経路 ↗</a></div><div class="map-footer"><span><i class="legend-dot"></i>宿場 <i class="legend-dot done"></i>訪問済み</span><span id="map-match" role="status"></span></div><p id="location-status" class="map-caption" role="status"></p><p class="map-caption">拡大すると道路・交差点が見えます。宿場を選ぶと周辺を拡大します。地図の読み込みには通信が必要です。<br>ピンは宿場付近の概略位置です。徒歩経路はGoogle マップで出発地と目的地を確認してください。旧東海道の正確な道筋を案内するものではありません。</p>`;
+ root.innerHTML=`<div class="map-toolbar"><label for="map-destination">宿場へ移動 <select id="map-destination"><option value="">宿場を選ぶ</option>${stops.map(s=>`<option value="${s.i}">${s.i===0?'出発':s.i===54?'到着':s.i+'宿'} · ${s.name}</option>`).join('')}</select></label><div class="map-controls"><button id="map-locate">現在地</button><button id="map-out" aria-label="地図を縮小">−</button><span id="map-scale" aria-live="polite"></span><button id="map-in" aria-label="地図を拡大">＋</button><button id="map-reset">全宿場</button></div></div><section class="walking-route-panel" aria-label="表示中の徒歩ルート"><div><strong id="route-title"></strong><p id="route-status" role="status"></p></div><div class="route-actions"><button id="route-prev" aria-label="前の区間">←</button><button id="route-fit">道順全体</button><button id="route-next" aria-label="次の区間">→</button><button id="route-retry" hidden>再読み込み</button></div></section><div id="road-map" aria-label="道路や交差点を確認できる東海道の地図"></div><p id="map-network" role="status" hidden>地図を読み込めません。通信を確認するか、下の「Google マップで徒歩経路」を開いてください。</p><div class="map-selected"><div><strong id="map-selected-name">日本橋周辺</strong><small>宿場付近の目安地点</small></div><button id="map-details" class="secondary">宿場の紹介</button><a id="map-walk" class="primary" target="_blank" rel="noopener noreferrer">Google マップで徒歩経路 ↗</a></div><div class="map-footer"><span><i class="legend-dot"></i>宿場 <i class="legend-dot done"></i>訪問済み</span><span id="map-match" role="status"></span></div><p id="location-status" class="map-caption" role="status"></p><p class="map-caption">拡大すると道路・交差点が見えます。宿場を選ぶと周辺を拡大します。地図の読み込みには通信が必要です。<br>ピンは宿場付近の概略位置です。青い線は選択した宿場から次の宿場までの現代の徒歩経路です。旧東海道の正確な道筋ではありません。通行規制や現地の案内を確認してください。経路提供：FOSSGIS / OpenStreetMap。</p>`;
  let map,tiles,markers=[],current=0,positionMarker,positionCircle,lastVisible=stops,lastVisited=new Set(),lastIds='',locating=false;
  const latlng=i=>[coordinates[i][1],coordinates[i][0]];
- function select(i,focus=true){current=i;root.querySelector('#map-selected-name').textContent=stops[i].name+'周辺';root.querySelector('#map-walk').href=walkingUrl(i);root.querySelector('#map-destination').value=String(i);if(map&&focus)map.setView(latlng(i),16);}
+ function select(i,focus=true){current=i;root.querySelector('#map-selected-name').textContent=stops[i].name+'周辺';root.querySelector('#map-walk').href=walkingUrl(i);root.querySelector('#map-destination').value=String(i);if(map&&focus)map.setView(latlng(i),16);if(map)loadRoute();}
+ let routeLine,routeController,routeTimer,routeVersion=0,routeKey=null;
+ const routeCache=new Map();
+ function showRoute(data,focus=true){
+  routeLine?.remove();
+  routeLine=L.geoJSON(data.geometry,{style:{color:'#2569bd',weight:6,opacity:.9,className:'walking-route-line'}}).addTo(map);
+  root.querySelector('#route-status').textContent=`徒歩 約${(data.distance/1000).toFixed(1)} km ・ 約${Math.round(data.duration/60)}分（目安）`;
+  if(focus)map.fitBounds(routeLine.getBounds(),{padding:[35,35],maxZoom:16,animate:false});
+ }
+ function loadRoute(force=false){
+  if(!map||root.hidden)return;
+  if(routeKey===current&&!force)return;
+  routeKey=current;const i=current,version=++routeVersion;
+  clearTimeout(routeTimer);routeController?.abort();routeLine?.remove();routeLine=null;
+  root.querySelector('#route-title').textContent=i===54?'三条大橋に到着':`${stops[i].name} → ${stops[i+1].name}`;
+  root.querySelector('#route-prev').disabled=i===0;root.querySelector('#route-next').disabled=i===54;
+  root.querySelector('#route-fit').disabled=true;root.querySelector('#route-retry').hidden=true;
+  if(i===54){root.querySelector('#route-status').textContent='東海道の終点です。前の区間に戻ると道順を表示できます。';return;}
+  if(routeCache.has(i)){showRoute(routeCache.get(i));root.querySelector('#route-fit').disabled=false;return;}
+  root.querySelector('#route-status').textContent='道に沿った徒歩ルートを読み込んでいます…';
+  routeTimer=setTimeout(async()=>{
+   const controller=new AbortController();routeController=controller;
+   const timeout=setTimeout(()=>controller.abort(),15000);
+   try{
+    const points=[coordinates[i],coordinates[i+1]].map(p=>p.join(',')).join(';');
+    // FOSSGIS's routed-foot backend uses a walking profile, despite the OSRM URL profile name.
+    const response=await fetch(`https://routing.openstreetmap.de/routed-foot/route/v1/driving/${points}?overview=full&geometries=geojson&steps=false`,{signal:controller.signal});
+    if(!response.ok)throw Error('Route unavailable');
+    const result=await response.json(),data=result.routes?.[0];
+    if(result.code!=='Ok'||data?.geometry?.type!=='LineString'||data.geometry.coordinates.length<2||!Number.isFinite(data.distance)||!Number.isFinite(data.duration))throw Error('No walking route');
+    if(version!==routeVersion)return;
+    routeCache.set(i,data);showRoute(data);root.querySelector('#route-fit').disabled=false;
+   }catch{if(version!==routeVersion)return;root.querySelector('#route-status').textContent='徒歩ルートを取得できませんでした。通信を確認して再読み込みしてください。';root.querySelector('#route-retry').hidden=false;}
+   finally{clearTimeout(timeout);}
+  },1100);
+ }
+ root.querySelector('#route-prev').onclick=()=>select(Math.max(0,current-1));
+ root.querySelector('#route-next').onclick=()=>select(Math.min(54,current+1));
+ root.querySelector('#route-fit').onclick=()=>{if(routeLine)map.fitBounds(routeLine.getBounds(),{padding:[35,35],maxZoom:16});};
+ root.querySelector('#route-retry').onclick=()=>loadRoute(true);
  select(0,false);
  function status(){root.querySelector('#map-scale').textContent=`拡大 ${map.getZoom()}`;root.querySelector('#map-in').disabled=map.getZoom()>=19;root.querySelector('#map-out').disabled=map.getZoom()<=5;}
  function fit(){if(!map||!lastVisible.length)return;map.fitBounds(lastVisible.map(s=>latlng(s.i)),{padding:[30,30],maxZoom:16,animate:false});}
@@ -17,7 +56,7 @@ export function createJourneyMap({stops,onSelect}) {
   marker.on('click',()=>select(s.i));
   return marker;
  });}
- function ensureMap(){if(root.hidden)return;if(!map){map=L.map('road-map',{zoomControl:false,minZoom:5,maxZoom:19,scrollWheelZoom:false}).setView(latlng(0),15);tiles=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors'}).addTo(map);tiles.on('tileerror',()=>root.querySelector('#map-network').hidden=false);tiles.on('load',()=>{const images=[...root.querySelectorAll('.leaflet-tile')];if(images.length&&images.every(img=>img.complete&&img.naturalWidth>0))root.querySelector('#map-network').hidden=true;});L.control.scale({imperial:false}).addTo(map);map.on('zoomend',status);paint();status();}map.invalidateSize();}
+ function ensureMap(){if(root.hidden)return;if(!map){map=L.map('road-map',{zoomControl:false,minZoom:5,maxZoom:19,scrollWheelZoom:false}).setView(latlng(0),15);tiles=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors'}).addTo(map);tiles.on('tileerror',()=>root.querySelector('#map-network').hidden=false);tiles.on('load',()=>{const images=[...root.querySelectorAll('.leaflet-tile')];if(images.length&&images.every(img=>img.complete&&img.naturalWidth>0))root.querySelector('#map-network').hidden=true;});L.control.scale({imperial:false}).addTo(map);map.on('zoomend',status);paint();status();}map.invalidateSize();loadRoute();}
  root.querySelector('#map-destination').onchange=e=>{if(e.target.value!=='')select(Number(e.target.value));};
  root.querySelector('#map-details').onclick=()=>onSelect(current);
  root.querySelector('#map-in').onclick=()=>map?.zoomIn();

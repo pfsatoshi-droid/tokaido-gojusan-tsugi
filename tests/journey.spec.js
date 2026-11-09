@@ -99,3 +99,33 @@ test('denied location permission does not block choosing a stop',async({page})=>
  await page.locator('#map-destination').selectOption('54');
  await expect(page.locator('#map-selected-name')).toHaveText('三条大橋周辺');
 });
+test('walking route loads automatically, follows selected leg, caches and handles endpoint',async({page})=>{
+ const requests=[];
+ await page.route('https://routing.openstreetmap.de/**',async route=>{
+  requests.push(route.request().url());
+  const coords=route.request().url().split('/driving/')[1].split('?')[0].split(';').map(x=>x.split(',').map(Number));
+  await route.fulfill({json:{code:'Ok',routes:[{distance:8200,duration:6000,geometry:{type:'LineString',coordinates:coords}}]}});
+ });
+ await page.goto('/');await page.locator('#map-nav').click();
+ await expect(page.locator('#route-title')).toHaveText('日本橋 → 品川');
+ await expect(page.locator('#route-status')).toContainText('8.2 km');
+ await expect(page.locator('.walking-route-line')).toHaveCount(1);
+ expect(requests[0]).toContain('/routed-foot/');
+ await page.locator('#route-next').click();
+ await expect(page.locator('#route-title')).toHaveText('品川 → 川崎');
+ await expect(page.locator('#route-status')).toContainText('8.2 km');
+ await page.locator('#route-prev').click();
+ await expect(page.locator('#route-status')).toContainText('8.2 km');
+ expect(requests.length).toBe(2);
+ await page.locator('#map-destination').selectOption('54');
+ await expect(page.locator('#route-status')).toContainText('終点');
+ await expect(page.locator('.walking-route-line')).toHaveCount(0);
+ await expect(page.locator('#route-next')).toBeDisabled();
+});
+test('route service failure never draws a fabricated straight route',async({page})=>{
+ await page.route('https://routing.openstreetmap.de/**',route=>route.fulfill({status:503,body:'Unavailable'}));
+ await page.goto('/');await page.locator('#map-nav').click();
+ await expect(page.locator('#route-status')).toContainText('取得できません');
+ await expect(page.locator('.walking-route-line')).toHaveCount(0);
+ await expect(page.locator('#route-retry')).toBeVisible();
+});
