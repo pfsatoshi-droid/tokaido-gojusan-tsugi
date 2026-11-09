@@ -34,3 +34,11 @@ npm test
 ## マップ
 
 上部の「マップ」または宿場一覧の表示切り替えから開けます。宿場のボタンか選択欄から紹介を開けます。位置・海岸線は概略で、道筋は宿場同士を結ぶ線です。実際の旧街道や徒歩ナビゲーションには使用しないでください。
+
+## GitHub Pages で開く
+
+公開用ファイルは `docs/` に含まれています。GitHub の Settings → Pages で Source を「Deploy from a branch」、Branch を `main`、Folder を `/docs` にして Save を押すと公開できます。
+
+公開先: https://pfsatoshi-droid.github.io/tokaido-gojusan-tsugi/
+
+アプリを更新した場合は `npm run build:pages` で公開用ファイルを再生成し、`docs/` もコミットしてください。公開設定の有効化とデプロイ完了が必要です。
