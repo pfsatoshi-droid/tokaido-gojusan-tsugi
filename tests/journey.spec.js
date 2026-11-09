@@ -99,28 +99,34 @@ test('denied location permission does not block choosing a stop',async({page})=>
  await page.locator('#map-destination').selectOption('54');
  await expect(page.locator('#map-selected-name')).toHaveText('三条大橋周辺');
 });
-test('walking route loads automatically, follows selected leg, caches and handles endpoint',async({page})=>{
+test('all walking routes remain visible across selection, filtering and endpoint',async({page})=>{
  const requests=[];
  await page.route('https://routing.openstreetmap.de/**',async route=>{
   requests.push(route.request().url());
   const coords=route.request().url().split('/driving/')[1].split('?')[0].split(';').map(x=>x.split(',').map(Number));
-  await route.fulfill({json:{code:'Ok',routes:[{distance:8200,duration:6000,geometry:{type:'LineString',coordinates:coords}}]}});
+  expect(coords).toHaveLength(55);
+  const legs=coords.slice(1).map((end,i)=>({distance:8200,duration:6000,steps:[{geometry:{type:'LineString',coordinates:[coords[i],end]}}]}));
+  await route.fulfill({json:{code:'Ok',routes:[{distance:442800,duration:324000,legs,geometry:{type:'LineString',coordinates:coords}}]}});
  });
  await page.goto('/');await page.locator('#map-nav').click();
- await expect(page.locator('#route-title')).toHaveText('日本橋 → 品川');
- await expect(page.locator('#route-status')).toContainText('8.2 km');
+ await expect(page.locator('#route-title')).toContainText('全54区間');
+ await expect(page.locator('#route-status')).toContainText('442.8 km');
  await expect(page.locator('.walking-route-line')).toHaveCount(1);
+ await expect(page.locator('.selected-route-line')).toHaveCount(1);
  expect(requests[0]).toContain('/routed-foot/');
  await page.locator('#route-next').click();
- await expect(page.locator('#route-title')).toHaveText('品川 → 川崎');
- await expect(page.locator('#route-status')).toContainText('8.2 km');
- await page.locator('#route-prev').click();
- await expect(page.locator('#route-status')).toContainText('8.2 km');
- expect(requests.length).toBe(2);
+ await expect(page.locator('#route-status')).toContainText('品川 → 川崎');
+ await expect(page.locator('.walking-route-line')).toHaveCount(1);
+ await page.getByRole('button',{name:'京都',exact:true}).click();
+ await expect(page.locator('.walking-route-line')).toHaveCount(1);
  await page.locator('#map-destination').selectOption('54');
  await expect(page.locator('#route-status')).toContainText('終点');
- await expect(page.locator('.walking-route-line')).toHaveCount(0);
+ await expect(page.locator('.walking-route-line')).toHaveCount(1);
+ await expect(page.locator('.selected-route-line')).toHaveCount(0);
  await expect(page.locator('#route-next')).toBeDisabled();
+ await page.locator('#show-cards').click();await page.locator('#show-map').click();
+ await expect(page.locator('.walking-route-line')).toHaveCount(1);
+ expect(requests.length).toBe(1);
 });
 test('route service failure never draws a fabricated straight route',async({page})=>{
  await page.route('https://routing.openstreetmap.de/**',route=>route.fulfill({status:503,body:'Unavailable'}));
