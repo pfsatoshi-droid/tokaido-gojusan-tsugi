@@ -11,7 +11,10 @@
     "build:pages": "vite build --base=./ --outDir docs && node --input-type=module -e \"import {writeFileSync} from 'node:fs'; writeFileSync('docs/.nojekyll', '');\""
   },
   "devDependencies": {
-    "vite": "^7.2.2",
-    "@playwright/test": "^1.56.1"
+    "@playwright/test": "^1.56.1",
+    "vite": "^7.2.2"
+  },
+  "dependencies": {
+    "leaflet": "^1.9.4"
   }
 }
