@@ -1,4 +1,5 @@
 import L from 'leaflet';
+import {attachChainHotels} from './chain-hotels';
 import {attachToyokoHotels} from './toyoko-layer';
 import {findVerifiedHotels} from './hotel-catalog';
 import {makeDefaultPlan,redistributeAfter,smoothUnlocked} from './default-plan';
@@ -110,6 +111,7 @@ export function createPlanner({map,container,stops,getCurrent}) {
  function applyDefault(){try{nights=nights.some(n=>n.locked===true)?redistributeAfter(fullRoute,[start,...nights],0).slice(1):makeDefaultPlan(fullRoute);hadSavedPlan=true;changed();q('#plan-default-confirm').hidden=true;q('#plan-default-status').textContent='徒歩ルートに沿って約25kmごとに配置しました。宿泊施設の所在地ではありません。ピンを動かして調整できます。';}catch{q('#plan-default-status').textContent='全ルートから目安地点を作れませんでした。';}}
  q('#plan-default').onclick=()=>{if(nights.length){q('#plan-default-confirm').hidden=false;return;}applyDefault();};
  q('#plan-default-confirm').onclick=applyDefault;
+ attachChainHotels({map,container:container.querySelector('.trip-planner'),onChoose:chooseCandidate});
  attachToyokoHotels({map,container:container.querySelector('.trip-planner'),onChoose:chooseCandidate});
  schedule();
  return {setRoute(route){fullRoute=route;q('#plan-smooth').disabled=!nights.some(n=>!n.locked);q('#plan-default').disabled=false;if(!hadSavedPlan&&!nights.length)applyDefault();else q('#plan-default-status').textContent='保存済みの計画を表示しています。25kmプランへの置き換えもできます。';}};

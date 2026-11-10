@@ -146,9 +146,9 @@ test('redistribution preserves earlier nights and spaces later stops along the r
 test('official Toyoko catalog is displayed and can be toggled without live hotel search',async({page})=>{
  await setup(page);
  await expect(page.locator('.toyoko-marker')).toHaveCount(83);
- await expect(page.locator('.toyoko-panel')).toContainText('83施設');
- await page.locator('.toyoko-panel input').uncheck();await expect(page.locator('.toyoko-marker')).toHaveCount(0);
- await page.locator('.toyoko-panel input').check();await expect(page.locator('.toyoko-marker')).toHaveCount(83);
+ await expect(page.locator('.toyoko-panel:not(.chain-panel)')).toContainText('83施設');
+ await page.locator('.toyoko-panel:not(.chain-panel) input').uncheck();await expect(page.locator('.toyoko-marker')).toHaveCount(0);
+ await page.locator('.toyoko-panel:not(.chain-panel) input').check();await expect(page.locator('.toyoko-marker')).toHaveCount(83);
  const results=await page.evaluate(async()=>{const {findVerifiedHotels}=await import('/src/hotel-catalog.js');return findVerifiedHotels('東横INN静岡駅南口');});expect(results).toHaveLength(1);expect(Number(results[0].lat)).toBeGreaterThan(34);
 });
 
@@ -178,4 +178,11 @@ test('smoothing keeps night count and locks while evening unlocked route gaps',a
  const start={name:'日本橋',lat:35,lng:139};const nights=[{name:'候補',lat:35,lng:138.9},{name:'固定',lat:35,lng:138,locked:true},{name:'候補2',lat:35,lng:137.9},{name:'京都（到着）',lat:35,lng:137}];
  const plan=smoothUnlocked(route,nights,start);expect(plan).toHaveLength(4);expect(plan[1]).toEqual(nights[1]);expect(plan[3]).toEqual(nights[3]);expect(plan[0].lng).toBeCloseTo(138.5,3);expect(plan[2].lng).toBeCloseTo(137.5,3);
  const withoutGoal=smoothUnlocked(route,nights.slice(0,3),start);expect(withoutGoal).toHaveLength(3);expect(withoutGoal[1]).toEqual(nights[1]);
+});
+test('three added hotel chains have distinct layers and verified catalog search',async({page})=>{
+ await setup(page);await expect(page.locator('.chain-marker')).toHaveCount(53);
+ await page.locator('[data-brand="comfort"]').uncheck();await expect(page.locator('.chain-marker')).toHaveCount(41);
+ await page.locator('[data-brand="super"]').uncheck();await expect(page.locator('.chain-marker')).toHaveCount(3);
+ const results=await page.evaluate(async()=>{const {findVerifiedHotels}=await import('/src/hotel-catalog.js');return ['コンフォートホテル横浜関内','スーパーホテル新橋','ホテルルートイン藤枝駅北'].map(findVerifiedHotels);});
+ expect(results.every(r=>r.length>0)).toBeTruthy();
 });

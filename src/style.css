@@ -44,3 +44,5 @@
 
 #plan-target-night{display:block;width:100%;padding:12px;margin:8px 0;border:1px solid #c4b5ce;border-radius:5px;background:#fffdf8;color:#354336;font:inherit}#plan-target-note{font-size:12px;line-height:1.8}
 .day-heading{flex-wrap:wrap}.day-heading button[data-action="lock"]{background:#e5eddd;border:1px solid #bfcfb0;border-radius:5px;padding:7px;font-size:11px}.day-heading button[data-action="lock"][aria-pressed="true"]{background:#49643e;color:#fff}
+
+.chain-panel label{display:block;margin:8px 0}.chain-marker span{display:grid;place-items:center;width:25px;height:25px;border:2px solid white;border-radius:5px;color:white;font-weight:700;box-shadow:0 2px 5px #0004}
