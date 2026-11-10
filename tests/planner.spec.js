@@ -133,3 +133,13 @@ test('東横INN横浜新子安駅前 resolves to operator-verified coordinates w
  expect(saved[0].lat).toBe(35.486148);expect(saved[0].lng).toBe(139.653484);
  await page.reload();await page.locator('#map-nav').click();await expect(page.locator('[data-rename="0"]')).toHaveValue(/東横INN横浜新子安駅前/);
 });
+test('redistribution preserves earlier nights and spaces later stops along the route',async()=>{
+ const {redistributeAfter}=await import('../src/default-plan.js');
+ const route={legs:[{steps:[{geometry:{type:'LineString',coordinates:[[139,35],[138,35],[137,35]]}}]}]};
+ const nights=[{name:'確定済み',lat:35,lng:139},{name:'変更したホテル',lat:35,lng:138.5},{name:'元の候補',lat:35,lng:138}];
+ const plan=redistributeAfter(route,nights,1);
+ expect(plan.slice(0,2)).toEqual(nights.slice(0,2));expect(plan.length).toBeGreaterThan(3);
+ expect(plan[2].lng).toBeLessThan(138.5);expect(plan.at(-1).lng).toBe(137);
+ expect(plan.at(-1).name).toContain('到着');
+ expect(()=>redistributeAfter(route,[{name:'遠方',lat:40,lng:140}],0)).toThrow();
+});
