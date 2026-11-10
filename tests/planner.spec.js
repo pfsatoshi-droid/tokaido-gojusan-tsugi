@@ -65,3 +65,25 @@ test('failed recalculation removes stale metrics but preserves the plan',async({
  await expect(page.locator('#plan-days li')).toHaveCount(2);
  await expect(page.locator('#plan-retry')).toBeVisible();
 });
+test('25km defaults create pins and a vertical itinerary without replacing saved plans',async({page})=>{
+ await page.route('https://tile.openstreetmap.org/**',r=>r.abort());
+ await page.route('https://routing.openstreetmap.de/**',async r=>{
+  const coords=r.request().url().split('/driving/')[1].split('?')[0].split(';').map(p=>p.split(',').map(Number));
+  const legs=coords.slice(1).map((p,i)=>({distance:coords.length===55?1000:i<2?25000:4000,duration:3600,steps:[{geometry:{type:'LineString',coordinates:[coords[i],p]}}]}));
+  await r.fulfill({json:{code:'Ok',routes:[{distance:54000,duration:54000,geometry:{type:'LineString',coordinates:coords},legs}]}});
+ });
+ await page.goto('/');await page.locator('#map-nav').click();
+ await expect(page.locator('#plan-days li')).toHaveCount(3);
+ await expect(page.locator('.overnight-marker')).toHaveCount(3);
+ await expect(page.locator('#plan-timeline')).toContainText('約25km地点');
+ await expect(page.locator('#plan-timeline')).toContainText('約50km地点');
+ await expect(page.locator('#plan-timeline')).toContainText('京都・三条大橋（到着）');
+ await expect(page.locator('#plan-status')).toContainText('計算しました');
+ await expect(page.locator('#plan-total')).toContainText('54.0 km');
+ await page.locator('[data-rename="0"]').fill('自分で選んだ宿');await page.locator('[data-rename="0"]').blur();
+ await page.reload();await page.locator('#map-nav').click();
+ await expect(page.locator('[data-rename="0"]')).toHaveValue('自分で選んだ宿');
+ await page.locator('#plan-default').click();
+ await expect(page.locator('#plan-default-confirm')).toBeVisible();
+ await expect(page.locator('[data-rename="0"]')).toHaveValue('自分で選んだ宿');
+});
