@@ -41,3 +41,5 @@
 #replace-hotel-form>div{display:flex;gap:8px;margin-top:8px}#replace-hotel-query{flex:1}#replace-hotel-results{display:grid;gap:8px}.replacement-result{text-align:left;background:#fffdf7;border:1px solid #c8b9cd;padding:13px;border-radius:5px;font-size:12px;line-height:1.8}
 
 .toyoko-panel{background:#e8eef8;border:1px solid #bdcce0;padding:15px;border-radius:7px;margin-bottom:20px}.toyoko-panel label{font-weight:600;font-size:14px}.toyoko-panel p{font-size:11px;line-height:1.9;color:#617387}.toyoko-marker span{display:grid;place-items:center;width:25px;height:25px;background:#1e5aa5;border:2px solid white;border-radius:5px;color:white;font-weight:700;box-shadow:0 2px 5px #0004}.toyoko-popup strong{display:block;font-size:14px}.toyoko-popup p{font-size:12px}.toyoko-popup a{display:block;margin:10px 0}.toyoko-popup button{font-size:12px}
+
+#plan-target-night{display:block;width:100%;padding:12px;margin:8px 0;border:1px solid #c4b5ce;border-radius:5px;background:#fffdf8;color:#354336;font:inherit}#plan-target-note{font-size:12px;line-height:1.8}

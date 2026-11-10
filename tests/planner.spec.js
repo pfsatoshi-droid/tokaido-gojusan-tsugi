@@ -107,7 +107,7 @@ test('nearby hotel results use radius search and can replace the overnight desti
  await page.locator('[data-timeline="0"]').click();
  await expect(page.locator('#hotel-results article')).toHaveCount(1);
  await expect(page.locator('#hotel-results')).toContainText('近くのホテル');
- await page.getByRole('button',{name:'この宿を宿泊地にする'}).click();
+ await page.getByRole('button',{name:'この宿を宿泊地にする'}).click();await page.locator('#plan-confirm').click();
  await expect(page.locator('[data-rename="0"]')).toHaveValue('近くのホテル');
  await expect(page.locator('#plan-status')).toContainText('計算しました');
 });
@@ -150,4 +150,15 @@ test('official Toyoko catalog is displayed and can be toggled without live hotel
  await page.locator('.toyoko-panel input').uncheck();await expect(page.locator('.toyoko-marker')).toHaveCount(0);
  await page.locator('.toyoko-panel input').check();await expect(page.locator('.toyoko-marker')).toHaveCount(83);
  const results=await page.evaluate(async()=>{const {findVerifiedHotels}=await import('/src/hotel-catalog.js');return findVerifiedHotels('東横INN静岡駅南口');});expect(results).toHaveLength(1);expect(Number(results[0].lat)).toBeGreaterThan(34);
+});
+
+test('candidate can replace a chosen night or append a new night',async({page})=>{
+ await setup(page);await addStation(page,1,'一泊目');await addStation(page,2,'二泊目');
+ await page.locator('#map-destination').selectOption('3');await page.locator('#plan-current').click();
+ await page.locator('#plan-target-night').selectOption('0');await page.locator('#plan-confirm').click();
+ await expect(page.locator('#plan-days li')).toHaveCount(2);
+ await expect(page.locator('[data-rename="0"]')).toHaveValue('神奈川');
+ await expect(page.locator('[data-rename="1"]')).toHaveValue('二泊目');
+ await addStation(page,4,'三泊目');await expect(page.locator('#plan-days li')).toHaveCount(3);
+ await expect(page.locator('[data-rename="2"]')).toHaveValue('三泊目');
 });
