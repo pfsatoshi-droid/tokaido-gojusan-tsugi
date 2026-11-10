@@ -143,3 +143,11 @@ test('redistribution preserves earlier nights and spaces later stops along the r
  expect(plan.at(-1).name).toContain('到着');
  expect(()=>redistributeAfter(route,[{name:'遠方',lat:40,lng:140}],0)).toThrow();
 });
+test('official Toyoko catalog is displayed and can be toggled without live hotel search',async({page})=>{
+ await setup(page);
+ await expect(page.locator('.toyoko-marker')).toHaveCount(83);
+ await expect(page.locator('.toyoko-panel')).toContainText('83施設');
+ await page.locator('.toyoko-panel input').uncheck();await expect(page.locator('.toyoko-marker')).toHaveCount(0);
+ await page.locator('.toyoko-panel input').check();await expect(page.locator('.toyoko-marker')).toHaveCount(83);
+ const results=await page.evaluate(async()=>{const {findVerifiedHotels}=await import('/src/hotel-catalog.js');return findVerifiedHotels('東横INN静岡駅南口');});expect(results).toHaveLength(1);expect(Number(results[0].lat)).toBeGreaterThan(34);
+});

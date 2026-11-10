@@ -1,0 +1,749 @@
+[
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00341/",
+    "name": "東横INN東西線木場駅",
+    "address": "〒135-0042 東京都江東区木場5-6-4",
+    "lat": 35.670639,
+    "lon": 139.806283,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 3236
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00015/",
+    "name": "東横INN浅草蔵前1",
+    "address": "〒111-0043 東京都台東区駒形1-3-13",
+    "lat": 35.706162,
+    "lon": 139.793872,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 3042
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00326/",
+    "name": "東横INN浅草蔵前2",
+    "address": "〒111-0051 東京都台東区蔵前2-7-5",
+    "lat": 35.703439,
+    "lon": 139.791933,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 2694
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00226/",
+    "name": "東横INN上野田原町駅",
+    "address": "〒111-0042 東京都台東区寿3-19-5",
+    "lat": 35.707789,
+    "lon": 139.791324,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 3070
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00119/",
+    "name": "東横INN門前仲町永代橋",
+    "address": "〒135-0034 東京都江東区永代1-15-3",
+    "lat": 35.675162,
+    "lon": 139.791157,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 1789
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00176/",
+    "name": "東横INN東京駅新大橋前",
+    "address": "〒103-0007 東京都中央区日本橋浜町2-58-2",
+    "lat": 35.68723,
+    "lon": 139.790612,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 1517
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00368/",
+    "name": "東横INN三ノ輪駅",
+    "address": "〒110-0012 東京都台東区竜泉2丁目18-5",
+    "lat": 35.72683851367118,
+    "lon": 139.78964820950256,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 4973
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00243/",
+    "name": "東横INNアキバ浅草橋駅東口",
+    "address": "〒111-0052 東京都台東区柳橋2-14-4",
+    "lat": 35.699414,
+    "lon": 139.787927,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 2119
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00156/",
+    "name": "東横INN日本橋浜町明治座前",
+    "address": "〒103-0007 東京都中央区日本橋浜町1-1-4",
+    "lat": 35.689282,
+    "lon": 139.785691,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 1189
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00206/",
+    "name": "東横INN神田秋葉原",
+    "address": "〒103-0002 東京都中央区日本橋馬喰町2-2-4",
+    "lat": 35.695439,
+    "lon": 139.783167,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 1513
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00239/",
+    "name": "東横INN日本橋税務署前",
+    "address": "〒103-0006 東京都中央区日本橋富沢町11-5",
+    "lat": 35.689801,
+    "lon": 139.781638,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 932
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00095/",
+    "name": "東横INN日本橋人形町",
+    "address": "〒103-0014 東京都中央区日本橋蛎殻町1-10-2",
+    "lat": 35.683413,
+    "lon": 139.781216,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 624
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00157/",
+    "name": "東横INN日本橋馬喰町",
+    "address": "〒103-0011 東京都中央区日本橋大伝馬町14-16",
+    "lat": 35.691332,
+    "lon": 139.780924,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 1020
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00135/",
+    "name": "東横INN鶯谷駅前",
+    "address": "〒110-0003 東京都台東区根岸1-2-17",
+    "lat": 35.721459,
+    "lon": 139.780067,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 4210
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00355/",
+    "name": "東横INN茅場町駅",
+    "address": "〒103-0025 東京都中央区日本橋茅場町1-4-9",
+    "lat": 35.680589,
+    "lon": 139.779831,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 603
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00170/",
+    "name": "東横INN日本橋三越前A4",
+    "address": "〒103-0024 東京都中央区日本橋小舟町11-12",
+    "lat": 35.687057,
+    "lon": 139.77858,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 522
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00269/",
+    "name": "東横INN東京駅八重洲北口",
+    "address": "〒103-0028 東京都中央区八重洲1-5-5",
+    "lat": 35.68207,
+    "lon": 139.771161,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 170
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00263/",
+    "name": "東横INN東京大手町",
+    "address": "〒101-0047 東京都千代田区内神田1-8-10",
+    "lat": 35.690278,
+    "lon": 139.766865,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 978
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00081/",
+    "name": "東横INN後楽園文京区役所前",
+    "address": "〒112-0002 東京都文京区小石川2-2-11",
+    "lat": 35.709726,
+    "lon": 139.751512,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 3534
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00244/",
+    "name": "東横INN品川港南口天王洲アイル",
+    "address": "〒140-0002 東京都品川区東品川2-2-35",
+    "lat": 35.621931,
+    "lon": 139.748518,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 509
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00049/",
+    "name": "東横INN品川青物横丁駅",
+    "address": "〒140-0004 東京都品川区南品川3-1-20",
+    "lat": 35.609504,
+    "lon": 139.742771,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 36
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00103/",
+    "name": "東横INN溜池山王駅官邸南",
+    "address": "〒100-0014 東京都千代田区永田町2-4-14",
+    "lat": 35.672147,
+    "lon": 139.742358,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 1711
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00042/",
+    "name": "東横INN羽田空港1",
+    "address": "〒144-0043 東京都大田区羽田1-2-1",
+    "lat": 35.551889,
+    "lon": 139.742042,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 1870
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00068/",
+    "name": "東横INN羽田空港2",
+    "address": "〒144-0043 東京都大田区羽田1-1-7",
+    "lat": 35.55202,
+    "lon": 139.741575,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 1826
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00029/",
+    "name": "東横INN品川駅高輪口",
+    "address": "〒108-0074 東京都港区高輪4-23-2",
+    "lat": 35.626538,
+    "lon": 139.737418,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 47
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00146/",
+    "name": "東横INN品川大井町",
+    "address": "〒140-0014 東京都品川区大井1-27-3",
+    "lat": 35.606204,
+    "lon": 139.731622,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 851
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00313/",
+    "name": "東横INN大森",
+    "address": "〒143-0016 東京都大田区大森北1-23-8",
+    "lat": 35.585158,
+    "lon": 139.730843,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 453
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00020/",
+    "name": "東横INN蒲田東口",
+    "address": "〒144-0052 東京都大田区蒲田5-18-4",
+    "lat": 35.562584,
+    "lon": 139.718201,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 590
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00001/",
+    "name": "東横INN蒲田1",
+    "address": "〒144-0051 東京都大田区西蒲田8-7-7",
+    "lat": 35.560955,
+    "lon": 139.711386,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 1019
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00246/",
+    "name": "東横INN品川旗の台駅南口",
+    "address": "〒142-0064 東京都品川区旗の台5-6-5",
+    "lat": 35.604448,
+    "lon": 139.702775,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 3217
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00010/",
+    "name": "東横INN川崎駅前砂子",
+    "address": "〒210-0006 神奈川県川崎市川崎区砂子1-5-23",
+    "lat": 35.53172,
+    "lon": 139.702283,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 92
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00111/",
+    "name": "東横INN川崎駅前市役所通",
+    "address": "〒210-0006 神奈川県川崎市川崎区砂子2-11-15",
+    "lat": 35.530223,
+    "lon": 139.701523,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 158
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00902/",
+    "name": "東横INN Jr.川崎駅前",
+    "address": "〒210-0007 神奈川県川崎市川崎区駅前本町24-3",
+    "lat": 35.53402,
+    "lon": 139.701293,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 348
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00182/",
+    "name": "東横INN横浜鶴見駅東口",
+    "address": "〒230-0051 神奈川県横浜市鶴見区鶴見中央1-23-20",
+    "lat": 35.509018,
+    "lon": 139.679423,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 208
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00159/",
+    "name": "東横INN横浜新子安駅前",
+    "address": "〒221-0021 神奈川県横浜市神奈川区子安通2-240-32",
+    "lat": 35.486148,
+    "lon": 139.653484,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 37
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00073/",
+    "name": "東横INN横浜スタジアム前2",
+    "address": "〒231-0023 神奈川県横浜市中区山下町205-3",
+    "lat": 35.443199,
+    "lon": 139.641838,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 3319
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00075/",
+    "name": "東横INN横浜スタジアム前1",
+    "address": "〒231-0023 神奈川県横浜市中区山下町205-1",
+    "lat": 35.44319,
+    "lon": 139.641686,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 3314
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00120/",
+    "name": "東横INN横浜関内",
+    "address": "〒231-0011 神奈川県横浜市中区太田町1-5-1",
+    "lat": 35.446416,
+    "lon": 139.640231,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 2935
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00050/",
+    "name": "東横INN横浜桜木町",
+    "address": "〒231-0005 神奈川県横浜市中区本町6-55",
+    "lat": 35.449588,
+    "lon": 139.635439,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 2429
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00901/",
+    "name": "東横INN Jr.横浜伊勢佐木長者町",
+    "address": "〒232-0021 神奈川県横浜市南区真金町1-10-5",
+    "lat": 35.43719,
+    "lon": 139.630002,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 3031
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00357/",
+    "name": "東横INN横浜駅西口",
+    "address": "〒220-0005 神奈川県横浜市西区南幸2-2-9",
+    "lat": 35.46285496030942,
+    "lon": 139.6182112219197,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 622
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00051/",
+    "name": "東横INN新横浜駅前本館",
+    "address": "〒222-0033 神奈川県横浜市港北区新横浜2-2-12",
+    "lat": 35.507272,
+    "lon": 139.613988,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 3463
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00061/",
+    "name": "東横INN新横浜駅前新館",
+    "address": "〒222-0033 神奈川県横浜市港北区新横浜2-2-14",
+    "lat": 35.506929,
+    "lon": 139.613967,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 3434
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00353/",
+    "name": "東横INN二俣川駅北口",
+    "address": "〒241-0024 神奈川県横浜市旭区本村町26-7",
+    "lat": 35.464949,
+    "lon": 139.533866,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 4560
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00377/",
+    "name": "東横INN大船駅西口",
+    "address": "〒247-0061 神奈川県鎌倉市台1丁目1-6",
+    "lat": 35.35370322432218,
+    "lon": 139.53031690498196,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 3275
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00115/",
+    "name": "東横INN湘南鎌倉藤沢駅北口",
+    "address": "〒251-0052 神奈川県藤沢市藤沢515-1",
+    "lat": 35.33902,
+    "lon": 139.48325,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 146
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00352/",
+    "name": "東横INN茅ヶ崎市役所",
+    "address": "〒253-0041 神奈川県茅ヶ崎市茅ヶ崎1-1-14",
+    "lat": 35.334377,
+    "lon": 139.404719,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 418
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00198/",
+    "name": "東横INN湘南茅ヶ崎駅北口",
+    "address": "〒253-0041 神奈川県茅ヶ崎市茅ヶ崎1-2-53",
+    "lat": 35.332956,
+    "lon": 139.404237,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 256
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00211/",
+    "name": "東横INN湘南平塚駅北口2",
+    "address": "〒254-0043 神奈川県平塚市紅谷町2-17",
+    "lat": 35.329792,
+    "lon": 139.349882,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 25
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00204/",
+    "name": "東横INN湘南平塚駅北口1",
+    "address": "〒254-0042 神奈川県平塚市明石町1-1",
+    "lat": 35.3301,
+    "lon": 139.349732,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 44
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00285/",
+    "name": "東横INN小田原駅東口",
+    "address": "〒250-0011 神奈川県小田原市栄町1-6-7",
+    "lat": 35.253738,
+    "lon": 139.155482,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 195
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00215/",
+    "name": "東横INN富士山三島駅",
+    "address": "〒411-0033 静岡県三島市文教町1-5-7",
+    "lat": 35.128456,
+    "lon": 138.910484,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 909
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00144/",
+    "name": "東横INN富士山沼津駅北口2",
+    "address": "〒410-0056 静岡県沼津市高島町13-3",
+    "lat": 35.105572,
+    "lon": 138.859806,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 697
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00136/",
+    "name": "東横INN富士山沼津駅北口1",
+    "address": "〒410-0056 静岡県沼津市高島町21-4",
+    "lat": 35.104767,
+    "lon": 138.857665,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 681
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00275/",
+    "name": "東横INN新富士駅南口",
+    "address": "〒416-0932 静岡県富士市柳島310-1",
+    "lat": 35.14166,
+    "lon": 138.664153,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 54
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00293/",
+    "name": "東横INN静岡清水駅前",
+    "address": "〒424-0814 静岡県静岡市清水区本郷町1-27",
+    "lat": 35.023908,
+    "lon": 138.486992,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 69
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00290/",
+    "name": "東横INN静岡駅南口",
+    "address": "〒422-8066 静岡県静岡市駿河区泉町3-24",
+    "lat": 34.968587,
+    "lon": 138.387425,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 648
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00315/",
+    "name": "東横INN静岡駅北口",
+    "address": "〒420-0033 静岡県静岡市葵区昭和町9-7",
+    "lat": 34.970827,
+    "lon": 138.383679,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 272
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00188/",
+    "name": "東横INN静岡藤枝駅北口",
+    "address": "〒426-0034 静岡県藤枝市駅前1-8-4",
+    "lat": 34.849955,
+    "lon": 138.252695,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 753
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00222/",
+    "name": "東横INN掛川駅新幹線南口",
+    "address": "〒436-0028 静岡県掛川市亀の甲1-4-17",
+    "lat": 34.767864,
+    "lon": 138.013003,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 300
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00373/",
+    "name": "東横INN浜松駅南口",
+    "address": "〒430-0926 静岡県浜松市中央区砂山町329-4",
+    "lat": 34.70354252767633,
+    "lon": 137.73741801340705,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 278
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00169/",
+    "name": "東横INN浜松駅北口",
+    "address": "〒430-0928 静岡県浜松市中央区板屋町103-1",
+    "lat": 34.70686,
+    "lon": 137.732856,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 186
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00380/",
+    "name": "東横INN豊橋駅前大通り",
+    "address": "〒440-0888 愛知県豊橋市駅前大通3丁目2-1",
+    "lat": 34.76330666990362,
+    "lon": 137.3877625300562,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 619
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00195/",
+    "name": "東横INN豊橋駅東口",
+    "address": "〒440-0076 愛知県豊橋市大橋通2-135",
+    "lat": 34.765995,
+    "lon": 137.383144,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 764
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00127/",
+    "name": "東横INN三河安城駅新幹線南口1",
+    "address": "〒446-0058 愛知県安城市三河安城南町1-15-12",
+    "lat": 34.966524,
+    "lon": 137.059861,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 3333
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00294/",
+    "name": "東横INN三河安城駅新幹線南口2",
+    "address": "〒446-0058 愛知県安城市三河安城南町1-15-2",
+    "lat": 34.966405,
+    "lon": 137.059475,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 3365
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00303/",
+    "name": "東横INN名鉄知立駅前",
+    "address": "〒472-0038 愛知県知立市本町本87-1",
+    "lat": 35.007715,
+    "lon": 137.040669,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 53
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00207/",
+    "name": "東横INN名古屋栄",
+    "address": "〒460-0005 愛知県名古屋市中区東桜2-22-21",
+    "lat": 35.169846,
+    "lon": 136.916467,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 3556
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00013/",
+    "name": "東横INN名古屋錦",
+    "address": "〒460-0003 愛知県名古屋市中区錦3-9-3",
+    "lat": 35.172203,
+    "lon": 136.903401,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 3361
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00328/",
+    "name": "東横INN名古屋金山",
+    "address": "〒460-0024 愛知県名古屋市中区正木3-9-28",
+    "lat": 35.146656,
+    "lon": 136.897806,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 481
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00025/",
+    "name": "東横INN名古屋丸の内",
+    "address": "〒460-0002 愛知県名古屋市中区丸の内1-4-20",
+    "lat": 35.176441,
+    "lon": 136.895741,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 3600
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00028/",
+    "name": "東横INN名古屋名駅南",
+    "address": "〒450-0003 愛知県名古屋市中村区名駅南2-3-30",
+    "lat": 35.164857,
+    "lon": 136.890825,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 2237
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00092/",
+    "name": "東横INN名古屋駅桜通口新館",
+    "address": "〒450-0002 愛知県名古屋市中村区名駅3-9-17",
+    "lat": 35.173654102377114,
+    "lon": 136.88632551471522,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 2988
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00022/",
+    "name": "東横INN名古屋駅桜通口本館",
+    "address": "〒450-0002 愛知県名古屋市中村区名駅3-16-1",
+    "lat": 35.1736572,
+    "lon": 136.8855937,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 2960
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00094/",
+    "name": "東横INN名古屋駅新幹線口",
+    "address": "〒453-0015 愛知県名古屋市中村区椿町7-16",
+    "lat": 35.169544,
+    "lon": 136.879706,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 2325
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00267/",
+    "name": "東横INN近鉄四日市駅北口",
+    "address": "〒510-0086 三重県四日市市諏訪栄町8-4",
+    "lat": 34.968049,
+    "lon": 136.620009,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 336
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00286/",
+    "name": "東横INN琵琶湖線南草津駅西口",
+    "address": "〒525-0050 滋賀県草津市南草津1-4-12",
+    "lat": 35.002289,
+    "lon": 135.945105,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 367
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00210/",
+    "name": "東横INN京都琵琶湖大津",
+    "address": "〒520-0046 滋賀県大津市長等2-1-28",
+    "lat": 35.008211,
+    "lon": 135.861904,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 635
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00053/",
+    "name": "東横INN京都四条烏丸",
+    "address": "〒600-8008 京都府京都市下京区四条通烏丸東入ル長刀鉾町28",
+    "lat": 35.003961,
+    "lon": 135.760763,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 1168
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00040/",
+    "name": "東横INN京都五条烏丸",
+    "address": "〒600-8418 京都府京都市下京区烏丸通松原下る五条烏丸町393",
+    "lat": 34.998629,
+    "lon": 135.759408,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 1628
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00344/",
+    "name": "東横INN京都二条城南",
+    "address": "〒604-8257 京都府京都市中京区堀川通三条下る橋浦町223",
+    "lat": 35.0079393,
+    "lon": 135.7518901,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 1835
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00233/",
+    "name": "東横INN京都五条大宮",
+    "address": "〒600-8362 京都府京都市下京区大宮通五条下る2丁目西側中堂寺前町502-5",
+    "lat": 34.994557,
+    "lon": 135.748723,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 2661
+  },
+  {
+    "source": "https://www.toyoko-inn.com/search/detail/00027/",
+    "name": "東横INN京都四条大宮",
+    "address": "〒604-8804 京都府京都市中京区壬生坊城町6-2",
+    "lat": 35.004034,
+    "lon": 135.747376,
+    "verified": "2026-11-10",
+    "routeDistanceMeters": 2310
+  }
+]
