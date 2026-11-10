@@ -87,3 +87,16 @@ test('25km defaults create pins and a vertical itinerary without replacing saved
  await expect(page.locator('#plan-default-confirm')).toBeVisible();
  await expect(page.locator('[data-rename="0"]')).toHaveValue('自分で選んだ宿');
 });
+test('overnight timeline and map pins open nearby hotel search for exact coordinates',async({page})=>{
+ await setup(page);await addStation(page,1,'泊まりたい場所');
+ await page.locator('[data-timeline="0"]').click();
+ await expect(page.locator('#plan-hotels')).toBeVisible();
+ await expect(page.locator('#plan-hotels-title')).toContainText('泊まりたい場所');
+ const url=new URL(await page.locator('#plan-hotels-link').getAttribute('href'));
+ expect(url.searchParams.get('query')).toBe('ホテル 旅館 near 35.622,139.742');
+ await expect(page.locator('#plan-hotels-link')).toHaveAttribute('target','_blank');
+ await page.locator('#plan-hotels-close').click();
+ await page.locator('#plan-fit').click();
+ await page.locator('.overnight-marker').click();
+ await expect(page.locator('#plan-hotels')).toBeVisible();
+});
