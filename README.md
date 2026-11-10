@@ -99,3 +99,9 @@ npm test
 2026-11-10に公式一覧・公式アクセス情報から確認したコンフォートホテル12施設、スーパーホテル38施設と、公式施設名・所在地とOpenStreetMapの位置を照合したホテルルートイン3施設を追加。`src/chain-hotels.json` に施設別の出典と位置の出典を記録しています。現行徒歩ルートから直線5km以内の採用条件です。チェーンごとの表示切り替え・施設名検索・宿泊候補への追加に対応。
 
 公式一覧の入口: https://www.choice-hotels.jp/hotel/hotellist/ 、 https://www.superhotel.co.jp/hotel_js.php 、 https://www.route-inn.co.jp/hotel_list/ 。スーパーホテルで緯度経度の逆記載があるものは日本国内の範囲として補正。コンフォートは公式アクセスページの地図座標を使用し、入口そのものを保証しません。ルートイン公式地図リンクは取得不可で、3施設以外は未収録です。調査の未収録記録は `research/chain-hotel-coverage.json` に保存。ルートインの位置データは © OpenStreetMap contributors、ODbL（https://www.openstreetmap.org/copyright）。全施設の網羅・営業継続・低価格は保証していません。
+
+### 旧東海道のKML/KMZ参考表示
+
+マップ内に、手元のKML/KMZを読み込む機能を追加しました。紫の参考線はファイル内のLineStringを表示し、区間の切れ目を勝手につなぎません。ファイルは送信・公開せず、ページの再読み込みで消えます。青い現代徒歩ルート、日別の距離計算、25kmプランは従来どおりです。
+
+ユーザー提供の3サイトの取得状況・利用条件は `research/provided-historic-route-sources.md` に記録しています。公開アプリへ配布できる全線データは未取得であり、史実上の旧東海道への全面置換は未完了です。

@@ -186,3 +186,12 @@ test('three added hotel chains have distinct layers and verified catalog search'
  const results=await page.evaluate(async()=>{const {findVerifiedHotels}=await import('/src/hotel-catalog.js');return ['コンフォートホテル横浜関内','スーパーホテル新橋','ホテルルートイン藤枝駅北'].map(findVerifiedHotels);});
  expect(results.every(r=>r.length>0)).toBeTruthy();
 });
+test('personal KML reference preserves disconnected paths without invented water crossings',async({page})=>{
+ await setup(page);
+ const kml='<?xml version="1.0"?><kml xmlns="http://www.opengis.net/kml/2.2"><Document><Placemark><name>参考区間</name><MultiGeometry><LineString><coordinates>139.774,35.684 139.773,35.683</coordinates></LineString><LineString><coordinates>136.695,35.064 136.694,35.063</coordinates></LineString></MultiGeometry></Placemark></Document></kml>';
+ await page.getByLabel('旧東海道のKMLまたはKMZ').setInputFiles({name:'personal-reference.kml',mimeType:'application/xml',buffer:Buffer.from(kml)});
+ await expect(page.locator('.historic-reference-line')).toHaveCount(2);
+ await expect(page.locator('.historic-route-panel [role=status]')).toContainText('2本');
+ await page.locator('.historic-route-panel [type=checkbox]').uncheck();await expect(page.locator('.historic-reference-line')).toHaveCount(0);
+ const result=await page.evaluate(async()=>{const {parseKml}=await import('/src/historic-route.js');try{parseKml('<kml><Placemark><Point><coordinates>139,35</coordinates></Point></Placemark></kml>');return false;}catch{return true;}});expect(result).toBeTruthy();
+});
