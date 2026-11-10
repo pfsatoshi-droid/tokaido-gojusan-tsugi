@@ -111,3 +111,14 @@ test('nearby hotel results use radius search and can replace the overnight desti
  await expect(page.locator('[data-rename="0"]')).toHaveValue('近くのホテル');
  await expect(page.locator('#plan-status')).toContainText('計算しました');
 });
+test('hotel name search replaces the clicked night without adding a new night',async({page})=>{
+ await setup(page);await addStation(page,1,'一泊目');await addStation(page,2,'二泊目');
+ await page.route('https://nominatim.openstreetmap.org/**',r=>r.fulfill({json:[{display_name:'ホテルテスト 横浜市',lat:'35.45',lon:'139.63'}]}));
+ await page.locator('[data-timeline="0"]').click();await page.locator('#replace-hotel-query').fill('ホテルテスト 横浜');await page.locator('#replace-hotel-form button').click();
+ await page.locator('.replacement-result').click();
+ await expect(page.locator('#plan-days li')).toHaveCount(2);
+ await expect(page.locator('[data-rename="0"]')).toHaveValue('ホテルテスト 横浜市');
+ await expect(page.locator('[data-night="1"] .day-route')).toContainText('ホテルテスト 横浜市 → 二泊目');
+ await expect(page.locator('#plan-status')).toContainText('計算しました');
+ const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('tokaido-overnight-plan-v1')));expect(saved[0].lat).toBe(35.45);expect(saved[0].lng).toBe(139.63);
+});
