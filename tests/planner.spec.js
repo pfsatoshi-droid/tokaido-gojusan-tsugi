@@ -93,10 +93,21 @@ test('overnight timeline and map pins open nearby hotel search for exact coordin
  await expect(page.locator('#plan-hotels')).toBeVisible();
  await expect(page.locator('#plan-hotels-title')).toContainText('泊まりたい場所');
  const url=new URL(await page.locator('#plan-hotels-link').getAttribute('href'));
- expect(url.searchParams.get('query')).toBe('ホテル 旅館 near 35.622,139.742');
+ expect(decodeURI(url.pathname)).toBe('/maps/search/ホテル/@35.622,139.742,15z');
  await expect(page.locator('#plan-hotels-link')).toHaveAttribute('target','_blank');
  await page.locator('#plan-hotels-close').click();
  await page.locator('#plan-fit').click();
  await page.locator('.overnight-marker').click();
  await expect(page.locator('#plan-hotels')).toBeVisible();
+});
+
+test('nearby hotel results use radius search and can replace the overnight destination',async({page})=>{
+ await setup(page);await addStation(page,1,'品川');
+ await page.route('https://overpass-api.de/**',async r=>{expect(new URLSearchParams(r.request().postData()).get('data')).toContain('around:3000,35.622,139.742');await r.fulfill({json:{elements:[{tags:{name:'近くのホテル'},lat:35.623,lon:139.742},{tags:{name:'遠いホテル'},lat:36,lon:140}]}});});
+ await page.locator('[data-timeline="0"]').click();
+ await expect(page.locator('#hotel-results article')).toHaveCount(1);
+ await expect(page.locator('#hotel-results')).toContainText('近くのホテル');
+ await page.getByRole('button',{name:'この宿を宿泊地にする'}).click();
+ await expect(page.locator('[data-rename="0"]')).toHaveValue('近くのホテル');
+ await expect(page.locator('#plan-status')).toContainText('計算しました');
 });
