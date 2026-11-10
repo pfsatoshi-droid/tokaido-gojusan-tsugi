@@ -10,7 +10,7 @@ export function makeDefaultPlan(route,spacing=25000){
 }
 
 // Match the anchor onto the route and split the remaining mapped road geometry.
-export function redistributeAfter(route,nights,index,spacing=25000){
+function redistributeUnlocked(route,nights,index,spacing=25000){
  const anchor=nights[index];if(!anchor)throw Error('Missing anchor');
  const points=route.legs.flatMap(l=>l.steps.flatMap(s=>s.geometry.coordinates));
  let best=Infinity,match;
@@ -26,4 +26,16 @@ export function redistributeAfter(route,nights,index,spacing=25000){
  if(distance<100)return nights.slice(0,index+1);
  const tail=makeDefaultPlan({legs:[{distance,steps:[{distance,geometry:{type:'LineString',coordinates:suffix}}]}]},spacing);
  return [...nights.slice(0,index+1),...tail];
+}
+
+export function redistributeAfter(route,nights,index,spacing=25000){
+ const locks=nights.map((n,i)=>n.locked===true&&i>index?i:-1).filter(i=>i>=0);
+ if(!locks.length)return redistributeUnlocked(route,nights,index,spacing);
+ const pts=route.legs.flatMap(l=>l.steps.flatMap(s=>s.geometry.coordinates));
+ const cumulative=[0];for(let i=1;i<pts.length;i++)cumulative.push(cumulative[i-1]+meters(pts[i-1],pts[i]));
+ function position(n){let best=Infinity,result=0;for(let i=0;i<pts.length-1;i++){const a=pts[i],b=pts[i+1],c=Math.cos(radians(n.lat)),dx=(b[0]-a[0])*c,dy=b[1]-a[1],x=(n.lng-a[0])*c,y=n.lat-a[1];const t=Math.max(0,Math.min(1,(x*dx+y*dy)/(dx*dx+dy*dy||1)));const point=[a[0]+t*(b[0]-a[0]),a[1]+t*(b[1]-a[1])];const d=meters([n.lng,n.lat],point);if(d<best){best=d;result=cumulative[i]+t*(cumulative[i+1]-cumulative[i]);}}if(best>5000)throw Error('Locked anchor off route');return result;}
+ function at(distance){let j=1;while(j<cumulative.length-1&&cumulative[j]<distance)j++;const a=pts[j-1],b=pts[j],t=(distance-cumulative[j-1])/(cumulative[j]-cumulative[j-1]||1);return {name:'ロック地点の間の宿泊候補',lng:a[0]+t*(b[0]-a[0]),lat:a[1]+t*(b[1]-a[1])};}
+ let output=nights.slice(0,index+1),previous=index,from=position(nights[index]);
+ for(const lock of locks){const to=position(nights[lock]);if(to<from)throw Error('Locked anchors out of route order');for(let i=previous+1;i<lock;i++)output.push(at(from+(to-from)*(i-previous)/(lock-previous)));output.push({...nights[lock]});previous=lock;from=to;}
+ return redistributeUnlocked(route,output,output.length-1,spacing);
 }

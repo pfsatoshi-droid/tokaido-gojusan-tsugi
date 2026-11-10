@@ -162,3 +162,14 @@ test('candidate can replace a chosen night or append a new night',async({page})=
  await addStation(page,4,'三泊目');await expect(page.locator('#plan-days li')).toHaveCount(3);
  await expect(page.locator('[data-rename="2"]')).toHaveValue('三泊目');
 });
+test('locked nights keep their position and day during redistribution',async()=>{
+ const {redistributeAfter}=await import('../src/default-plan.js');const route={legs:[{steps:[{geometry:{type:'LineString',coordinates:[[139,35],[138,35],[137,35]]}}]}]};
+ const nights=[{name:'変更',lat:35,lng:138.9},{name:'候補',lat:35,lng:138.7},{name:'予約済み',lat:35,lng:138.4,locked:true},{name:'候補2',lat:35,lng:138.2},{name:'確定2',lat:35,lng:138,locked:true}];
+ const plan=redistributeAfter(route,nights,0);expect(plan[2]).toEqual(nights[2]);expect(plan[4]).toEqual(nights[4]);expect(plan[1].lng).toBeGreaterThan(plan[2].lng);expect(plan[3].lng).toBeLessThan(plan[2].lng);
+});
+test('night lock persists after reload and can be released',async({page})=>{
+ await setup(page);await addStation(page,1,'予約ホテル');await page.getByRole('button',{name:'1泊目の自動調整ロック'}).click();
+ await expect(page.getByRole('button',{name:'1泊目の自動調整ロック'})).toHaveAttribute('aria-pressed','true');
+ await page.reload();await page.locator('#map-nav').click();await expect(page.getByRole('button',{name:'1泊目の自動調整ロック'})).toHaveAttribute('aria-pressed','true');
+ await page.getByRole('button',{name:'1泊目の自動調整ロック'}).click();await expect(page.getByRole('button',{name:'1泊目の自動調整ロック'})).toHaveAttribute('aria-pressed','false');
+});
