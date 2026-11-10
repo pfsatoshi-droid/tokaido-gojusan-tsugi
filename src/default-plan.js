@@ -39,3 +39,15 @@ export function redistributeAfter(route,nights,index,spacing=25000){
  for(const lock of locks){const to=position(nights[lock]);if(to<from)throw Error('Locked anchors out of route order');for(let i=previous+1;i<lock;i++)output.push(at(from+(to-from)*(i-previous)/(lock-previous)));output.push({...nights[lock]});previous=lock;from=to;}
  return redistributeUnlocked(route,output,output.length-1,spacing);
 }
+
+export function smoothUnlocked(route,nights,start){
+ if(!nights.length)return [];
+ const end=route.legs.at(-1).steps.at(-1).geometry.coordinates.at(-1);
+ const last=nights.at(-1),endsAtGoal=meters([last.lng,last.lat],end)<100;
+ const points=nights.map(n=>({...n}));
+ if(endsAtGoal)points[points.length-1].locked=true;
+ else points.push({name:'京都・三条大橋（到着）',lng:end[0],lat:end[1],locked:true});
+ const result=redistributeAfter(route,[start,...points],0).slice(1);
+ if(!endsAtGoal)result.pop();else result[result.length-1]={...last};
+ return result;
+}

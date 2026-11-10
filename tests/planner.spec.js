@@ -173,3 +173,9 @@ test('night lock persists after reload and can be released',async({page})=>{
  await page.reload();await page.locator('#map-nav').click();await expect(page.getByRole('button',{name:'1泊目の自動調整ロック'})).toHaveAttribute('aria-pressed','true');
  await page.getByRole('button',{name:'1泊目の自動調整ロック'}).click();await expect(page.getByRole('button',{name:'1泊目の自動調整ロック'})).toHaveAttribute('aria-pressed','false');
 });
+test('smoothing keeps night count and locks while evening unlocked route gaps',async()=>{
+ const {smoothUnlocked}=await import('../src/default-plan.js');const route={legs:[{steps:[{geometry:{type:'LineString',coordinates:[[139,35],[138,35],[137,35]]}}]}]};
+ const start={name:'日本橋',lat:35,lng:139};const nights=[{name:'候補',lat:35,lng:138.9},{name:'固定',lat:35,lng:138,locked:true},{name:'候補2',lat:35,lng:137.9},{name:'京都（到着）',lat:35,lng:137}];
+ const plan=smoothUnlocked(route,nights,start);expect(plan).toHaveLength(4);expect(plan[1]).toEqual(nights[1]);expect(plan[3]).toEqual(nights[3]);expect(plan[0].lng).toBeCloseTo(138.5,3);expect(plan[2].lng).toBeCloseTo(137.5,3);
+ const withoutGoal=smoothUnlocked(route,nights.slice(0,3),start);expect(withoutGoal).toHaveLength(3);expect(withoutGoal[1]).toEqual(nights[1]);
+});
