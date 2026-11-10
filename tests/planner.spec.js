@@ -122,3 +122,14 @@ test('hotel name search replaces the clicked night without adding a new night',a
  await expect(page.locator('#plan-status')).toContainText('計算しました');
  const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('tokaido-overnight-plan-v1')));expect(saved[0].lat).toBe(35.45);expect(saved[0].lng).toBe(139.63);
 });
+test('東横INN横浜新子安駅前 resolves to operator-verified coordinates without geocoder',async({page})=>{
+ await setup(page);await addStation(page,1,'一泊目');
+ await page.route('https://nominatim.openstreetmap.org/**',r=>r.abort());
+ await page.locator('[data-timeline="0"]').click();await page.locator('#replace-hotel-query').fill('東横INN横浜新子安駅前');await page.locator('#replace-hotel-form button').click();
+ await expect(page.locator('.replacement-result')).toContainText('子安通2-240-32');
+ await page.locator('.replacement-result').click();
+ await expect(page.locator('#plan-status')).toContainText('計算しました');
+ const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('tokaido-overnight-plan-v1')));
+ expect(saved[0].lat).toBe(35.486148);expect(saved[0].lng).toBe(139.653484);
+ await page.reload();await page.locator('#map-nav').click();await expect(page.locator('[data-rename="0"]')).toHaveValue(/東横INN横浜新子安駅前/);
+});

@@ -1,4 +1,5 @@
 import L from 'leaflet';
+import {findVerifiedHotels} from './hotel-catalog';
 import {makeDefaultPlan} from './default-plan';
 import {coordinates} from './locations';
 
@@ -32,7 +33,7 @@ export function createPlanner({map,container,stops,getCurrent}) {
   if(Date.now()-lastSearch<1100){q('#replace-hotel-status').textContent='少し待ってから検索してください。';return;}
   lastSearch=Date.now();replaceController?.abort();replaceController=new AbortController();const active=replaceController;const timeout=setTimeout(()=>active.abort(),15000);
   q('#replace-hotel-results').replaceChildren();q('#replace-hotel-status').textContent='ホテルの場所を検索しています…';
-  try{const url=new URL('https://nominatim.openstreetmap.org/search');url.search=new URLSearchParams({q:query,format:'jsonv2',countrycodes:'jp',limit:'5','accept-language':'ja',viewbox:`${target.lng-.3},${target.lat+.3},${target.lng+.3},${target.lat-.3}`});const r=await fetch(url,{signal:active.signal});if(!r.ok)throw Error('search');const data=await r.json();if(active!==replaceController||editingNight!==target)return;if(!Array.isArray(data))throw Error('search');const places=data.map(p=>({name:String(p.display_name||'').slice(0,120),lat:Number(p.lat),lng:Number(p.lon)})).filter(validPoint);
+  try{const url=new URL('https://nominatim.openstreetmap.org/search');url.search=new URLSearchParams({q:query,format:'jsonv2',countrycodes:'jp',limit:'5','accept-language':'ja',viewbox:`${target.lng-.3},${target.lat+.3},${target.lng+.3},${target.lat-.3}`});const verified=findVerifiedHotels(query);const r=verified.length?{ok:true,json:async()=>verified}:await fetch(url,{signal:active.signal});if(!r.ok)throw Error('search');const data=await r.json();if(active!==replaceController||editingNight!==target)return;if(!Array.isArray(data))throw Error('search');const places=data.map(p=>({name:String(p.display_name||'').slice(0,120),lat:Number(p.lat),lng:Number(p.lon)})).filter(validPoint);
    q('#replace-hotel-status').textContent=places.length?'住所・支店名を確認し、変更先を選んでください。':'見つかりませんでした。市区町村や住所を加えて検索してください。';
    places.forEach(point=>{const button=document.createElement('button');button.type='button';button.className='replacement-result';button.textContent=point.name+' ／ この場所に変更';button.onclick=()=>{const index=nights.indexOf(target);if(index<0)return;nights[index]=point;editingNight=null;replaceController?.abort();hotelVersion++;hotelController?.abort();changed();map.setView([point.lat,point.lng],16);};q('#replace-hotel-results').append(button);});
   }catch{if(active===replaceController)q('#replace-hotel-status').textContent='場所を検索できませんでした。通信を確認するか、住所で再検索してください。今のピンは変更していません。';}finally{clearTimeout(timeout);}
@@ -87,7 +88,7 @@ export function createPlanner({map,container,stops,getCurrent}) {
   q('#plan-search-results').replaceChildren();q('#plan-search-status').textContent='場所を検索しています…';
   const timeout=setTimeout(()=>active.abort(),15000);
   try{const url=new URL('https://nominatim.openstreetmap.org/search');url.search=new URLSearchParams({q:query,format:'jsonv2',countrycodes:'jp',limit:'5','accept-language':'ja'});
-   const response=await fetch(url,{signal:active.signal});if(!response.ok)throw Error('search');const data=await response.json();if(active!==searchController)return;if(!Array.isArray(data))throw Error('search');
+   const verified=findVerifiedHotels(query);const response=verified.length?{ok:true,json:async()=>verified}:await fetch(url,{signal:active.signal});if(!response.ok)throw Error('search');const data=await response.json();if(active!==searchController)return;if(!Array.isArray(data))throw Error('search');
    const places=data.map(p=>({name:String(p.display_name||'').slice(0,120),lat:Number(p.lat),lng:Number(p.lon)})).filter(validPoint);
    q('#plan-search-status').textContent=places.length?'候補を選び、地図の位置を確認してください。':'見つかりませんでした。住所で検索するか、地図を押して指定してください。';
    places.forEach(p=>{const b=document.createElement('button');b.type='button';b.textContent=p.name;b.onclick=()=>choose(p);q('#plan-search-results').append(b);});
