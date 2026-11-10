@@ -1,0 +1,8 @@
+出典：電子足跡・旧東海道歩き旅
+https://e-footprints.info/tokaido/index.html
+表示データ：https://e-footprints.info/tokaido/index_files/gps/eMap_toukaidoh_files/leaflet.js
+利用規約：https://e-footprints.info/terms_of_service/terms_of_service.html
+取得日：2026-11-10
+ユーザーの個人利用目的の指定に基づき、公開地図の座標から陸路2区間と水路1区間をKML化。
+原資料の陸路累計491.552km、水路22.275km。推定経路であり現況の通行可能性は未検証。
+本データに対して独自のオープンライセンスを付与するものではありません。第三者の再利用には原著作者の利用条件が適用されます。

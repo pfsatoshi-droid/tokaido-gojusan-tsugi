@@ -195,3 +195,7 @@ test('personal KML reference preserves disconnected paths without invented water
  await page.locator('.historic-route-panel [type=checkbox]').uncheck();await expect(page.locator('.historic-reference-line')).toHaveCount(0);
  const result=await page.evaluate(async()=>{const {parseKml}=await import('/src/historic-route.js');try{parseKml('<kml><Placemark><Point><coordinates>139,35</coordinates></Point></Placemark></kml>');return false;}catch{return true;}});expect(result).toBeTruthy();
 });
+test('published historic reference loads land and water automatically',async({page})=>{
+ await setup(page);await expect(page.locator('.historic-reference-line')).toHaveCount(3);await expect(page.locator('.historic-water-line')).toHaveCount(1);
+ await expect(page.locator('.historic-route-panel [role=status]')).toContainText('3本');
+});
